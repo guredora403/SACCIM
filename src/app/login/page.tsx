@@ -20,8 +20,8 @@ export default function Page() {
         return _client
     })
     const {data: isDev} = api.isDev.useQuery();
-    return <div>
+    return <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
         <h1>Supabase Auth</h1>
         <Auth supabaseClient={supabase} providers={["github", "discord"]} onlyThirdPartyProviders={!isDev} redirectTo={`${getBaseUrl()}/auth/callback`}/>
-    </div>
+    </main>
 }
