@@ -3,7 +3,7 @@ import { api, HydrateClient } from "~/trpc/server";
 import { createClient } from "~/utils/supabase/server";
 import { Metadata } from "next";
 
-export const metadata: Metadata = {title: "top - profile-sechack365"};
+export const metadata: Metadata = {title: "top"};
 
 export default async function Home() {
   const supabase = await createClient();
