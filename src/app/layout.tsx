@@ -1,13 +1,12 @@
 import "~/styles/globals.css";
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
-import { TRPCReactProvider } from "~/trpc/react";
+import { ClientProviders } from "./_components/Providers";
 import Link from "next/link";
 import { createClient } from "~/utils/supabase/server";
 import Navigation from "./_components/navigation";
 import { Suspense } from "react";
-import { Audio} from "react-loader-spinner"
-
+import { Loading } from "./_components/Loading";
 
 export const metadata: Metadata = {
   title: {
@@ -24,14 +23,16 @@ export default function RootLayout({
   return (
     <html lang="ja" className={`${GeistSans.variable}`}>
       <body>
-        <TRPCReactProvider>
+        <ClientProviders>
           <header>
             <h1>SACCIM</h1>
-            <Suspense fallback={<div>loading...</div>}><WithAuthLayout/></Suspense>
+            <Suspense fallback={<Loading/>}><WithAuthLayout/></Suspense>
           </header>
-          {children}
+          <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
+            {children}
+          </main>
           <footer>powered by T3Stack and supabase</footer>
-        </TRPCReactProvider>
+        </ClientProviders>
       </body>
     </html>
   );
@@ -40,7 +41,6 @@ export default function RootLayout({
 async function WithAuthLayout() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser()
-  console.log(user)
   return <>
   <Navigation authorized={!!user} />
   {user && <div>{user.email}でログイン済み</div>}
