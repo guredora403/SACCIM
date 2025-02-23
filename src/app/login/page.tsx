@@ -4,24 +4,27 @@ import { Auth } from "@supabase/auth-ui-react"
 import { useState } from "react"
 import { env } from "~/env"
 import { api } from "~/trpc/react"
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import { getBaseUrl } from "~/utils/url"
+
 
 export default function Page() {
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const nextUrl = searchParams.get("next") ?? "/"
     const [supabase] = useState<ReturnType<typeof createClient>>(() => {
         const _client = createClient()
         _client.auth.onAuthStateChange((event, session) => {
             if(event === "SIGNED_IN"){
-                router.push("/")
+                router.push(nextUrl)
                 router.refresh()
             }
         })
         return _client
     })
     const {data: isDev} = api.isDev.useQuery();
-    return <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-        <h1>Supabase Auth</h1>
-        <Auth supabaseClient={supabase} providers={["github", "discord"]} onlyThirdPartyProviders={!isDev} redirectTo={`${getBaseUrl()}/auth/callback`}/>
-    </main>
+    return <div>
+        <h1>ログイン</h1>
+        <Auth supabaseClient={supabase} providers={["github", "discord"]} onlyThirdPartyProviders={!isDev} redirectTo={`${getBaseUrl()}/auth/callback`} queryParams={{next: nextUrl}}/>
+    </div>
 }
