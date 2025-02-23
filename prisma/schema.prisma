@@ -21,7 +21,7 @@ model User {
 model Avatar {
     id Int @id @default(autoincrement())
     name String
-    iconUrl String
+    iconFileName String @default("avatars/default.png")
     owner User @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId String @db.Uuid
     useForPrimaryFriendShips FriendShip[]
