@@ -12,6 +12,41 @@ datasource db {
 
 model User {
     id String @id @db.Uuid
+    avatars Avatar[]
+    ownFriendships FriendShip[] @relation("ownFriendShipRef")
+    friendFriendships FriendShip[] @relation("friendShipsToFriendRef") // 友達から自分へのfriendship
     @@map("users")
+}
+
+model Avatar {
+    id Int @id @default(autoincrement())
+    name String
+    iconUrl String
+    owner User @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId String @db.Uuid
+    useForPrimaryFriendShips FriendShip[]
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    @@map("avatars")
+}
+
+enum FriendStatus {
+    PENDING
+    ACCEPTED
+    DECLINED
+}
+
+model FriendShip {
+    id Int @id @default(autoincrement())
+    owner User @relation(name: "ownFriendShipRef", fields: [userId], references: [id], onDelete: Cascade)
+    userId String @db.Uuid
+    friend User @relation(name: "friendShipsToFriendRef", fields: [friendId], references: [id], onDelete: Cascade)
+    friendId String @db.Uuid
+    primaryFriendAvatar Avatar @relation(fields: [primaryFriendAvatarId], references: [id], onDelete: Restrict)
+    primaryFriendAvatarId Int
+    status FriendStatus
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    @@map("friendships")
 }
 
