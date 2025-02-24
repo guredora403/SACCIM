@@ -25,7 +25,7 @@ model Avatar {
     owner User @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId String @db.Uuid
     useForPrimaryFriendShips FriendShip[]
-    inviteInformation FriendInviteInfomation[]
+    inviteInformation FriendInviteInfomation?
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
     @@map("avatars")
