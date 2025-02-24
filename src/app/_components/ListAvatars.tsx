@@ -13,7 +13,7 @@ export function ListAvatars(){
                 <p>{avatar.name}</p>
                 <ActionMenu>
                     <Item key="detail">詳細</Item>
-                    <Item key="invite">招待</Item>
+                    <Item key="invite" href={`${avatar.id}/invite`}>招待</Item>
                     <Item key="delete">削除</Item>
                 </ActionMenu>
             </div>
