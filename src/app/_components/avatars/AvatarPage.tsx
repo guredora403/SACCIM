@@ -1,9 +1,9 @@
 "use client";
 import { ActionButton, DialogTrigger, Heading, View } from "@adobe/react-spectrum";
-import { CreateAvatarDialog } from "~/app/_components/CreateAvatarDialog";
+import { CreateAvatarDialog } from "./CreateAvatarDialog";
 import { api } from "~/trpc/react";
-import { ListAvatars } from "~/app/_components/ListAvatars";
-import { Loading } from "./Loading";
+import { ListAvatars } from "./ListAvatars";
+import { Loading } from "../Loading";
 import { Suspense } from "react";
 
 export default function Avatars() {
