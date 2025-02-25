@@ -24,6 +24,7 @@ export function ClientProviders({ children }: { children: React.ReactNode }) {
       <Provider
         theme={defaultTheme}
         router={{ navigate: router.push }}
+        locale='ja-JP'
       >
         {children}
       </Provider>
