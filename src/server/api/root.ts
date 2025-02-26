@@ -1,7 +1,7 @@
 import { createCallerFactory, createTRPCRouter } from "~/server/api/trpc";
 import { publicProcedure } from "~/server/api/trpc";
 import { env } from "~/env";
-import { avatarRouter } from "./routers/avaterRouter";
+import { avatarRouter } from "./routers/avatarRouter";
 
 /**
  * This is the primary router for your server.

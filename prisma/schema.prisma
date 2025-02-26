@@ -25,6 +25,7 @@ model Avatar {
     owner User @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId String @db.Uuid
     useForPrimaryFriendShips FriendShip[]
+    inviteInformation FriendInviteInfomation?
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
     @@map("avatars")
@@ -50,3 +51,12 @@ model FriendShip {
     @@map("friendships")
 }
 
+model FriendInviteInfomation {
+    id Int @id @default(autoincrement())
+    avatar Avatar @relation(fields: [avatarId], references: [id], onDelete: Cascade)
+    avatarId Int
+    token String
+    createdAt DateTime @default(now())
+    @@unique([avatarId])
+    @@map("friend_invite_infomations")
+}
