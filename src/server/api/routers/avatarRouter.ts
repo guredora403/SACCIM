@@ -35,11 +35,12 @@ export const avatarRouter = createTRPCRouter({
         })
     }),
     getInvitationUrl: authorizedProcedure
-    .input(z.number())
+    .input(z.object({avatarId: z.number()}))
     .query(async ({ctx: { db, user }, input }) => {
+        const { avatarId } = input
         const avatar = await db.avatar.findUnique({
             where: {
-                id: input,
+                id: avatarId,
                 userId: user.id
             },
             include: {
