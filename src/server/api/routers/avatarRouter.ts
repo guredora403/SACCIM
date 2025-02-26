@@ -52,10 +52,15 @@ export const avatarRouter = createTRPCRouter({
         }
         return {
             avatarId: avatar.id,
-            info: avatar.inviteInformation ? {
+            inviteInfo: avatar.inviteInformation ? {
                 token: avatar.inviteInformation.token,
                 url: getInvitationUrlFromToken(avatar.inviteInformation.token)
-            }: null
+            }: null,
+            avatarInfo: {
+                id: avatar.id,
+                name: avatar.name,
+                iconFileName: avatar.iconFileName
+            }
         }
     }),
     generateInvitationUrl: authorizedProcedure
@@ -71,7 +76,7 @@ export const avatarRouter = createTRPCRouter({
             throw new TRPCError({code: "NOT_FOUND", message: "The specified avatar ID not found."})
         }
         const newInformation = await db.$transaction(async (tx) => {
-            await tx.friendInviteInfomation.delete({
+            await tx.friendInviteInfomation.deleteMany({ // 初回生成時にはdeleteだとエラーになるのでDeleteManyを使う
                 where: {
                     avatarId: avatar.id
                 }
