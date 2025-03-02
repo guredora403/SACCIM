@@ -1,4 +1,4 @@
-import { InvitePage } from "~/app/_components/InvitePage"
+import { InvitePage } from "~/app/_components/avatars/inviteInformation/InvitePage" 
 import { api, HydrateClient } from "~/trpc/server"
 import { notFound } from "next/navigation"
 

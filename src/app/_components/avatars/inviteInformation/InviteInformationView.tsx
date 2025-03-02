@@ -3,7 +3,7 @@ import { ActionButton, AlertDialog, DialogTrigger, ProgressCircle, Text, View } 
 import { api } from "~/trpc/react";
 import {QRCodeCanvas} from "qrcode.react"
 import { useState } from "react";
-import { AvatarDisplay } from "./AvatarDisplay";
+import { AvatarDisplay } from "../../AvatarDisplay"; 
 
 
 
