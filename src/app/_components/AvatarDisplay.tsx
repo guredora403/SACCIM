@@ -55,7 +55,7 @@ export function AvatarDisplay({
           }}
         />
         </View>
-        <Text UNSAFE_className='{`font-medium ${textClass}`'>
+        <Text UNSAFE_className={'font-medium ' + textClass}>
           {name}
         </Text>
     </Flex>
