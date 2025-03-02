@@ -7,6 +7,7 @@ import { createClient } from "~/utils/supabase/server";
 import Navigation from "./_components/navigation";
 import { Suspense } from "react";
 import { Loading } from "./_components/Loading";
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: {
@@ -24,6 +25,7 @@ export default function RootLayout({
     <html lang="ja" className={`${GeistSans.variable}`}>
       <body>
         <ClientProviders>
+          <Toaster/>
           <header>
             <h1>SACCIM</h1>
             <Suspense fallback={<Loading/>}><WithAuthLayout/></Suspense>
