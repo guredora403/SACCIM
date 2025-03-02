@@ -3,6 +3,7 @@ import { ActionButton, AlertDialog, DialogTrigger, ProgressCircle, Text, View } 
 import { api } from "~/trpc/react";
 import {QRCodeCanvas} from "qrcode.react"
 import { useState } from "react";
+import { AvatarDisplay } from "./AvatarDisplay";
 
 
 
@@ -30,12 +31,14 @@ export function InviteInformationView({ avatarId }: {avatarId: number}) {
     }
     if(result.inviteInfo === null) {
         return <View>
+            <AvatarDisplay name={result.avatarInfo.name} iconFileName={result.avatarInfo.iconFileName} size="M"/>
             <p>招待リンクがありません。以下のボタンから生成できます。</p>
             <ActionButton isDisabled={mutation.isPending} onPress={generate}>生成</ActionButton>
             {mutation.isPending && <ProgressCircle aria-label="生成中..." isIndeterminate size="S"/>}
         </View>
     }
     return <View>
+        <AvatarDisplay name={result.avatarInfo.name} iconFileName={result.avatarInfo.iconFileName} size="M"/>
         <QRCodeCanvas value={result.inviteInfo.url} size={256} level="H"/>
         <p>{result.inviteInfo.url}</p>
         <ActionButton onPress={copyToClipBoard}>{copied ? "コピーしました" : "コピー"}</ActionButton>

@@ -1,6 +1,7 @@
 // listing the avatars
 import { ActionMenu, Item } from "@adobe/react-spectrum";
 import { api } from "~/trpc/react";
+import { AvatarDisplay } from "../AvatarDisplay";
 
 export function ListAvatars(){
     const [avatars] = api.avatar.getAll.useSuspenseQuery();
@@ -10,7 +11,7 @@ export function ListAvatars(){
     return <div>
         {avatars.map(avatar => {
             return <div key={avatar.id}>
-                <p>{avatar.name}</p>
+                <AvatarDisplay name={avatar.name} iconFileName={avatar.iconFileName} size="M"/>
                 <ActionMenu>
                     <Item key="detail">詳細</Item>
                     <Item key="invite" href={`/avatars/${avatar.id}/invite`}>招待</Item>
