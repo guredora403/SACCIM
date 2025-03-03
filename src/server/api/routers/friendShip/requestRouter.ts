@@ -21,6 +21,10 @@ export const friendRequestRouter = createTRPCRouter({
                 message: 'The specied token not found'
             })
         }
-        return info.avatar
+        return {
+            name: info.avatar.name,
+            iconFileName: info.avatar.iconFileName,
+            isOwned: info.avatar.userId === user.id
+        }
     }),
 });
