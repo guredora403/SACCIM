@@ -5,6 +5,7 @@ import {
   Provider
 } from '@adobe/react-spectrum';
 import { TRPCReactProvider } from "~/trpc/react";
+import { Provider as JotaiProvider } from 'jotai';
 
 // This is a custom type that extends the RouterConfig type from react-spectrum
 declare module '@adobe/react-spectrum' {
@@ -26,7 +27,9 @@ export function ClientProviders({ children }: { children: React.ReactNode }) {
         router={{ navigate: router.push }}
         locale='ja-JP'
       >
-        {children}
+        <JotaiProvider>
+          {children}
+        </JotaiProvider>
       </Provider>
     </TRPCReactProvider>
   );
