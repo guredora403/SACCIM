@@ -15,6 +15,8 @@ model User {
     avatars Avatar[]
     ownFriendships FriendShip[] @relation("ownFriendShipRef")
     friendFriendships FriendShip[] @relation("friendShipsToFriendRef") // 友達から自分へのfriendship
+    sentFriendRequests FriendRequest[] @relation("friend_request_sender_user")
+    receivedFriendRequests FriendRequest[] @relation("friend_request_recipient_user")
     @@map("users")
 }
 
@@ -26,16 +28,13 @@ model Avatar {
     userId String @db.Uuid
     useForPrimaryFriendShips FriendShip[]
     inviteInformation FriendInviteInfomation?
+    usingFriendRequests FriendRequest[] @relation("friend_request_sender_avatar")
+    receivedFriendRequests FriendRequest[] @relation("friend_request_recipient_avatar")
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
     @@map("avatars")
 }
 
-enum FriendStatus {
-    PENDING
-    ACCEPTED
-    DECLINED
-}
 
 model FriendShip {
     id Int @id @default(autoincrement())
@@ -45,7 +44,6 @@ model FriendShip {
     friendId String @db.Uuid
     primaryFriendAvatar Avatar @relation(fields: [primaryFriendAvatarId], references: [id], onDelete: Restrict)
     primaryFriendAvatarId Int
-    status FriendStatus
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
     @@map("friendships")
@@ -59,4 +57,19 @@ model FriendInviteInfomation {
     createdAt DateTime @default(now())
     @@unique([avatarId])
     @@map("friend_invite_infomations")
+}
+
+model FriendRequest {
+    id Int @id @default(autoincrement())
+    senderAvatar Avatar @relation(name: "friend_request_sender_avatar", fields: [senderAvatarId], references: [id], onDelete: Cascade)
+    senderAvatarId Int
+    senderUser User @relation(name: "friend_request_sender_user", fields: [senderUserId], references: [id], onDelete: Cascade)
+    senderUserId String @db.Uuid
+    recipientAvatar Avatar @relation(name: "friend_request_recipient_avatar", fields: [recipientAvatarId], references: [id], onDelete: Cascade)
+    recipientAvatarId Int @map("recipientId")
+    recipientUser User @relation(name: "friend_request_recipient_user", fields: [recipientUserId], references: [id], onDelete: Cascade)
+    recipientUserId String @db.Uuid
+    createdAt DateTime @default(now())
+    @@map("friend_requests")
+    @@unique([senderUserId, recipientUserId])
 }
