@@ -1,6 +1,6 @@
 "use client"
 import { ActionButton, Button, Content, Dialog, Divider, Form, TextField, Heading } from "@adobe/react-spectrum";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { api } from "~/trpc/react";
 
 
@@ -16,11 +16,16 @@ export function CreateAvatarDialog({ close }: {close: () => void }) {
     const mutation = api.avatar.create.useMutation({onSuccess: () => {
         util.avatar.invalidate();
     }})
-    const createOnFormChange = (key: keyof avatarFormData) => {
+    const createOnFormChange = useCallback((key: keyof avatarFormData) => {
         return (value: string) => {
-            setFormData({...formdata, [key]: value});
+            setFormData((prev) => {
+                return {
+                    ...prev,
+                    [key]: value
+                }
+            });
         }
-    }
+    }, [])
     const onsubmit = async (e: any) => {
         e.preventDefault();
         mutation.mutate(formdata, {
