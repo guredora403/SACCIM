@@ -3,7 +3,8 @@ import { ActionButton, AlertDialog, DialogTrigger, ProgressCircle, Text, View } 
 import { api } from "~/trpc/react";
 import {QRCodeCanvas} from "qrcode.react"
 import { useState } from "react";
-import { AvatarDisplay } from "./AvatarDisplay";
+import { AvatarDisplay } from "../../AvatarDisplay"; 
+import toast from "react-hot-toast";
 
 
 
@@ -25,6 +26,7 @@ export function InviteInformationView({ avatarId }: {avatarId: number}) {
         if(result.inviteInfo === null) return;
         navigator.clipboard.writeText(result.inviteInfo.url)
         .then(() => {
+            toast.success("コピーしました")
             setCopied(true)
             setTimeout(() => setCopied(false), 3000)
         })
