@@ -42,7 +42,7 @@ export const friendRequestRouter = createTRPCRouter({
       // すでに友達か確認
       const existingFriend = await db.friendShip.findFirst({
         where: {
-          userId: user.id,
+          ownerId: user.id,
           friendId: info.avatar.userId,
         },
       });
@@ -216,6 +216,74 @@ export const friendRequestRouter = createTRPCRouter({
         });
       }
       return request;
+    }),
+  acceptFriendRequest: authorizedProcedure
+    .input(z.object({ id: z.number() }))
+    .mutation(async ({ ctx: { db, user }, input }) => {
+      const { id } = input;
+      const request = await db.friendRequest.findUnique({
+        where: {
+          id,
+          recipientUserId: user.id,
+        },
+        include: {
+          senderAvatar: true,
+          recipientAvatar: true,
+        },
+      });
+      if (!request) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "The specified request not found",
+        });
+      }
+      const friendShip = await db.$transaction(async (tx) => {
+        // 申請側→申請受けた側
+        await tx.friendShip.create({
+          data: {
+            ownerId: request.senderUserId,
+            friendId: request.recipientUserId,
+            primaryFriendAvatarId: request.recipientAvatar.id,
+            contactAvatars: {
+              create: {
+                avatarId: request.recipientAvatar.id,
+                ownerId: request.senderUserId,
+              },
+            },
+          },
+        });
+        // 申請受けた側→申請側
+        const result = await tx.friendShip.create({
+          data: {
+            ownerId: request.recipientUserId,
+            friendId: request.senderUserId,
+            primaryFriendAvatarId: request.senderAvatar.id,
+            contactAvatars: {
+              create: {
+                avatarId: request.senderAvatar.id,
+                ownerId: request.recipientUserId,
+              },
+            },
+          },
+          select: {
+            id: true,
+            primaryFriendAvatar: {
+              select: {
+                name: true,
+                iconFileName: true,
+              },
+            },
+            createdAt: true,
+          },
+        });
+        await tx.friendRequest.delete({
+          where: {
+            id,
+          },
+        });
+        return result;
+      });
+      return friendShip;
     }),
   createFriendRequest: authorizedProcedure
     .input(z.object({ targetToken: z.string(), avatarId: z.number() }))
