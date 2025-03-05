@@ -12,7 +12,7 @@ export async function generateMetadata({
   try {
     // トークンを使ってアバター情報を取得
     const avatar = await api.friendShip.request.getAvatarByToken({ token });
-    
+
     return {
       title: `${avatar.name}からの招待`,
       description: `${avatar.name}がSACCIMで連絡先の共有を希望しています。`,
@@ -31,7 +31,7 @@ export default async function InvitationRoute({
 }: {
   params: { token: string };
 }) {
-  const { token } = await params
+  const { token } = await params;
   try {
     // トークンの有効性を確認するためにプリフェッチ
     await api.friendShip.request.getAvatarByToken({ token });
