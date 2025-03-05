@@ -31,7 +31,7 @@ export function AvatarDisplay({
   // 実際の実装ではSupabaseのストレージURLなどを使うことになるでしょう
   const avatarImage = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=random&size=${imageSize * 2}`;
   
-  return (
+  return (<View>
     <Flex 
       direction="row" 
       gap={gap} 
@@ -59,5 +59,5 @@ export function AvatarDisplay({
           {name}
         </Text>
     </Flex>
-  );
+    </View>);
 }
