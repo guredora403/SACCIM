@@ -2,7 +2,11 @@ import { InvitePage } from "~/app/_components/avatars/inviteInformation/InvitePa
 import { api, HydrateClient } from "~/trpc/server";
 import { notFound } from "next/navigation";
 
-export default async function Invite({ params }: { params: { id: string } }) {
+export default async function Invite({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const { id } = await params;
   const avatarId = parseInt(id, 10);
   if (isNaN(avatarId)) {
