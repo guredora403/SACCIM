@@ -10,6 +10,7 @@ const Navigation = ({ authorized }: { authorized: boolean }) => {
 
   const authNavItems = authorized
     ? [
+        { href: "/friend", label: "友達" },
         { href: "/avatars", label: "アバター一覧" },
         { href: "/logout", label: "ログアウト" },
       ]
