@@ -93,6 +93,128 @@ export const friendRequestRouter = createTRPCRouter({
             relationshipStatus: RelationshipStatus.none
         }
     }),
+    getSentRequests: authorizedProcedure
+    .query(async ({ctx: {db, user}}) => {
+        const requests = await db.friendRequest.findMany({
+            where: {
+                senderUserId: user.id
+            },
+            select: {
+                id: true,
+                recipientAvatar: {
+                    select: {
+                        name: true,
+                        iconFileName: true
+                    }
+                },
+                senderAvatar: {
+                    select: {
+                        id: true,
+                        name: true,
+                        iconFileName: true
+                    }
+                },
+                createdAt: true,
+            }
+        })
+        return requests
+    }),
+    getSentRequest: authorizedProcedure
+    .input(z.object({id: z.number()}))
+    .query(async ({ctx: {db, user}, input }) => {
+        const { id } = input
+        const request = await db.friendRequest.findUnique({
+            where: {
+                id,
+                senderUserId: user.id
+            },
+            select: {
+                id: true,
+                recipientAvatar: {
+                    select: {
+                        name: true,
+                        iconFileName: true
+                    }
+                },
+                senderAvatar: {
+                    select: {
+                        id: true,
+                        name: true,
+                        iconFileName: true
+                    }
+                },
+                createdAt: true
+            }
+        })
+        if (!request) {
+            throw new TRPCError({
+                code: 'NOT_FOUND',
+                message: 'The specified request not found'
+            })
+        }
+        return request
+    }),
+    getReceivedRequests: authorizedProcedure
+    .query(async ({ctx: {db, user}}) => {
+        const requests = await db.friendRequest.findMany({
+            where: {
+                recipientUserId: user.id
+            },
+            select: {
+                id: true,
+                recipientAvatar: {
+                    select: {
+                        id: true,
+                        name: true,
+                        iconFileName: true
+                    }
+                },
+                senderAvatar: {
+                    select: {
+                        name: true,
+                        iconFileName: true
+                    }
+                },
+                createdAt: true,
+            }
+        })
+        return requests
+    }),
+    getReceivedRequest: authorizedProcedure
+    .input(z.object({id: z.number()}))
+    .query(async ({ctx: {db, user}, input }) => {
+        const { id } = input
+        const request = await db.friendRequest.findUnique({
+            where: {
+                id,
+                recipientUserId: user.id
+            },
+            select: {
+                id: true,
+                recipientAvatar: {
+                    select: {
+                        id: true,
+                        name: true,
+                        iconFileName: true
+                    }
+                },
+                senderAvatar: {
+                    select: {
+                        name: true,
+                        iconFileName: true
+                    }
+                },
+                createdAt: true
+            }
+        })
+        if (!request) {
+            throw new TRPCError({
+                code: 'NOT_FOUND',
+                message: 'The specified request not found'
+            })
+        }
+        return request
+    }),
     createFriendRequest: authorizedProcedure
     .input(z.object({targetToken: z.string(), avatarId: z.number()}))
     .mutation(async ({ctx: {db, user}, input }) => {
