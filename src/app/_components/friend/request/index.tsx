@@ -1,5 +1,12 @@
 "use client";
-import { Item, TabList, TabPanels, Tabs, View } from "@adobe/react-spectrum";
+import {
+  Breadcrumbs,
+  Item,
+  TabList,
+  TabPanels,
+  Tabs,
+  View,
+} from "@adobe/react-spectrum";
 import { ReceivedFriendRequestList } from "./friendRequestList";
 import { Suspense, useState } from "react";
 import { Loading } from "../../Loading";
@@ -7,6 +14,12 @@ import { Loading } from "../../Loading";
 export function FriendRequestListPage() {
   return (
     <View>
+      <nav>
+        <Breadcrumbs>
+          <Item href="/friend/">友達一覧</Item>
+          <Item href="/friend/request/">友達申請一覧</Item>
+        </Breadcrumbs>
+      </nav>
       <h2>友達申請一覧</h2>
       <Tabs defaultSelectedKey={"received"} orientation="vertical">
         <TabList>
