@@ -1,5 +1,5 @@
 export type Avatar = {
-    id: number;
-    name: string;
-    iconFileName: string;
-}
+  id: number;
+  name: string;
+  iconFileName: string;
+};

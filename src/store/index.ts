@@ -1,1 +1,1 @@
-export  { tokenAtom as friendRequestTokenAtom }  from "./friendRequest";
+export { tokenAtom as friendRequestTokenAtom } from "./friendRequest";

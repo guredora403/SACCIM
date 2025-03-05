@@ -46,7 +46,6 @@
     "react-hook-form": "^7.54.2",
     "react-hot-toast": "^2.5.2",
     "react-json-pretty": "^2.2.0",
-    "react-loader-spinner": "^6.1.6",
     "server-only": "^0.0.1",
     "superjson": "^2.2.1",
     "ulid": "^2.3.0",

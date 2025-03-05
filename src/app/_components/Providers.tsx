@@ -1,17 +1,14 @@
-'use client';
-import {useRouter} from 'next/navigation';
-import {
-  defaultTheme,
-  Provider
-} from '@adobe/react-spectrum';
+"use client";
+import { useRouter } from "next/navigation";
+import { defaultTheme, Provider } from "@adobe/react-spectrum";
 import { TRPCReactProvider } from "~/trpc/react";
-import { Provider as JotaiProvider } from 'jotai';
+import { Provider as JotaiProvider } from "jotai";
 
 // This is a custom type that extends the RouterConfig type from react-spectrum
-declare module '@adobe/react-spectrum' {
+declare module "@adobe/react-spectrum" {
   interface RouterConfig {
     routerOptions: NonNullable<
-      Parameters<ReturnType<typeof useRouter>['push']>[1]
+      Parameters<ReturnType<typeof useRouter>["push"]>[1]
     >;
   }
 }
@@ -25,11 +22,9 @@ export function ClientProviders({ children }: { children: React.ReactNode }) {
       <Provider
         theme={defaultTheme}
         router={{ navigate: router.push }}
-        locale='ja-JP'
+        locale="ja-JP"
       >
-        <JotaiProvider>
-          {children}
-        </JotaiProvider>
+        <JotaiProvider>{children}</JotaiProvider>
       </Provider>
     </TRPCReactProvider>
   );
