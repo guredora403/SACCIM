@@ -12,7 +12,7 @@ import { ZodError } from "zod";
 
 import { db } from "~/server/db";
 import { User } from "@supabase/supabase-js";
-import { createClient as createSupabase} from "~/utils/supabase/server";
+import { createClient as createSupabase } from "~/utils/supabase/server";
 
 /**
  * 1. CONTEXT
@@ -115,19 +115,21 @@ export const publicProcedure = t.procedure.use(timingMiddleware);
  */
 export const authorizedProcedure = t.procedure
   .use(timingMiddleware)
-  .use(async ({ next, ctx}) => {
+  .use(async ({ next, ctx }) => {
     const supabase = await createSupabase();
     const {
       data: { user },
-      error
+      error,
     } = await supabase.auth.getUser();
-    if(user === null) {
+    if (user === null) {
       throw new TRPCError({
         code: "UNAUTHORIZED",
-        message: error?.message
-      })
+        message: error?.message,
+      });
     }
-    return next({ ctx: {
-      user
-    }})
+    return next({
+      ctx: {
+        user,
+      },
+    });
   });

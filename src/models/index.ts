@@ -1,1 +1,1 @@
-export { RelationshipStatus } from './relationship'
+export { RelationshipStatus } from "./relationship";
