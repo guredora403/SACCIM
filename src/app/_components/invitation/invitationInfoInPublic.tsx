@@ -1,9 +1,10 @@
 "use client";
 import { api } from "~/trpc/react";
 import { AvatarDisplay } from "../AvatarDisplay";
-import { View, Text, Link } from "@adobe/react-spectrum";
+import { View, Text } from "@adobe/react-spectrum";
 import { useAtomValue } from "jotai";
 import { friendRequestTokenAtom } from "~/store";
+import { LoginLink } from "../LoginLink";
 
 export function InvitationInfoInPublic() {
   const token = useAtomValue(friendRequestTokenAtom);
@@ -17,7 +18,7 @@ export function InvitationInfoInPublic() {
       <AvatarDisplay name={result.name} iconFileName={result.iconFileName} />
       <View>
         <p>友達追加するにはログインしてください。</p>
-        <Link href="/login">ログイン</Link>
+        <LoginLink />
       </View>
     </View>
   );
