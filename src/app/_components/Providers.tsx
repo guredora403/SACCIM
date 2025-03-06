@@ -21,6 +21,7 @@ export function ClientProviders({ children }: { children: React.ReactNode }) {
     <TRPCReactProvider>
       <Provider
         theme={defaultTheme}
+        // eslint-disable-next-line @typescript-eslint/unbound-method
         router={{ navigate: router.push }}
         locale="ja-JP"
       >

@@ -1,37 +1,16 @@
-"use client";
-import { createClient } from "~/utils/supabase/client";
-import { Auth } from "@supabase/auth-ui-react";
-import { useState } from "react";
-import { env } from "~/env";
-import { api } from "~/trpc/react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { getBaseUrl } from "~/utils/url";
+import { LoginPage } from "../_components/login";
+import { Suspense } from "react";
+import { type Metadata } from "next";
+import { Loading } from "../_components/Loading";
+
+export const metadata: Metadata = {
+  title: "ログイン",
+};
 
 export default function Page() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const nextUrl = searchParams.get("next") ?? "/";
-  const [supabase] = useState<ReturnType<typeof createClient>>(() => {
-    const _client = createClient();
-    _client.auth.onAuthStateChange((event, session) => {
-      if (event === "SIGNED_IN") {
-        router.push(nextUrl);
-        router.refresh();
-      }
-    });
-    return _client;
-  });
-  const { data: isDev } = api.isDev.useQuery();
   return (
-    <div>
-      <h1>ログイン</h1>
-      <Auth
-        supabaseClient={supabase}
-        providers={["github", "discord"]}
-        onlyThirdPartyProviders={!isDev}
-        redirectTo={`${getBaseUrl()}/auth/callback`}
-        queryParams={{ next: nextUrl }}
-      />
-    </div>
+    <Suspense fallback={<Loading />}>
+      <LoginPage />
+    </Suspense>
   );
 }

@@ -8,7 +8,7 @@ import {
   View,
 } from "@adobe/react-spectrum";
 import { ReceivedFriendRequestList } from "./friendRequestList";
-import { Suspense, useState } from "react";
+import { Suspense } from "react";
 import { Loading } from "../../Loading";
 
 export function FriendRequestListPage() {

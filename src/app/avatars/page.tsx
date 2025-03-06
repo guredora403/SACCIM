@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import { type Metadata } from "next";
 import AvatarPage from "~/app/_components/avatars/AvatarPage";
 import { api, HydrateClient } from "~/trpc/server";
 

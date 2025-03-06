@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import { type Metadata } from "next";
 import { api, HydrateClient } from "~/trpc/server";
 import { notFound } from "next/navigation";
 import { ReceivedFriendRequestDetailPage } from "~/app/_components/friend/request/received";

@@ -10,7 +10,7 @@ export function FriendList() {
     <View>
       {friends.map((friend) => {
         return (
-          <View>
+          <View key={friend.id}>
             <Link href={`/friend/${friend.id}`}>
               <AvatarDisplay
                 name={friend.primaryFriendAvatar.name}

@@ -4,7 +4,6 @@ import {
   AlertDialog,
   DialogTrigger,
   ProgressCircle,
-  Text,
   View,
 } from "@adobe/react-spectrum";
 import { api } from "~/trpc/react";
@@ -21,7 +20,7 @@ export function InviteInformationView({ avatarId }: { avatarId: number }) {
   const [copied, setCopied] = useState(false);
   const mutation = api.avatar.generateInvitationUrl.useMutation({
     onSuccess: () => {
-      util.avatar.getInvitationUrl.invalidate();
+      void util.avatar.getInvitationUrl.invalidate();
     },
   });
 
@@ -31,8 +30,8 @@ export function InviteInformationView({ avatarId }: { avatarId: number }) {
 
   const copyToClipBoard = () => {
     if (result.inviteInfo === null) return;
-    navigator.clipboard.writeText(result.inviteInfo.url).then(() => {
-      toast.success("コピーしました");
+    void navigator.clipboard.writeText(result.inviteInfo.url).then(() => {
+      void toast.success("コピーしました");
       setCopied(true);
       setTimeout(() => setCopied(false), 3000);
     });

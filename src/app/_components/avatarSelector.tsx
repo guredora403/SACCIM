@@ -2,7 +2,7 @@
 import { AvatarDisplay } from "./AvatarDisplay";
 import { api } from "~/trpc/react";
 import { RadioGroup, Radio, View } from "@adobe/react-spectrum";
-import { Avatar } from "~/models/AvatarSchema";
+import { type Avatar } from "~/models/AvatarSchema";
 import { useState } from "react";
 
 export const AvatarSelecter = ({

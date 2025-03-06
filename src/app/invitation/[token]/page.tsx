@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import { type Metadata } from "next";
 import { api, HydrateClient } from "~/trpc/server";
 import { notFound } from "next/navigation";
 import { InvitationPage } from "~/app/_components/invitation/invitationPage";
@@ -42,6 +42,7 @@ export default async function InvitationRoute({
       </HydrateClient>
     );
   } catch (error) {
+    console.log(error);
     // 無効なトークンの場合は404ページを表示
     notFound();
   }
