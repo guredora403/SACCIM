@@ -1,4 +1,8 @@
-import { authorizedProcedure, createTRPCRouter } from "~/server/api/trpc";
+import {
+  authorizedProcedure,
+  createTRPCRouter,
+  publicProcedure,
+} from "~/server/api/trpc";
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 import { RelationshipStatus } from "~/models";
@@ -94,6 +98,31 @@ export const friendRequestRouter = createTRPCRouter({
         isOwned: false,
         relationshipStatus: RelationshipStatus.none,
       };
+    }),
+  getAvatarByTokenInPublic: publicProcedure
+    .input(z.object({ token: z.string() }))
+    .query(async ({ ctx: { db }, input }) => {
+      const { token } = input;
+      const info = await db.friendInviteInfomation.findFirst({
+        where: {
+          token,
+        },
+        select: {
+          avatar: {
+            select: {
+              name: true,
+              iconFileName: true,
+            },
+          },
+        },
+      });
+      if (!info) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "The specified token not found",
+        });
+      }
+      return info.avatar;
     }),
   getSentRequests: authorizedProcedure.query(async ({ ctx: { db, user } }) => {
     const requests = await db.friendRequest.findMany({
