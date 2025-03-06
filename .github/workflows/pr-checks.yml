@@ -1,0 +1,32 @@
+name: Pull Request Checks
+
+on:
+  pull_request:
+    branches: master
+
+jobs:
+  check:
+    uses: ./.github/workflows/lint-typecheck.yml
+
+  buildcheck:
+    needs: check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "yarn"
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Generate Prisma client
+        run: yarn prisma generate
+
+      - name: Build check
+        run: SKIP_ENV_VALIDATION=1 yarn run build
