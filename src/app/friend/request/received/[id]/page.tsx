@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import { type Metadata } from "next";
 import { api, HydrateClient } from "~/trpc/server";
 import { notFound } from "next/navigation";
 import { ReceivedFriendRequestDetailPage } from "~/app/_components/friend/request/received";
@@ -14,7 +14,7 @@ const getReceivedRequest = cache(async (id: number) => {
 export async function generateMetadata({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }): Promise<Metadata> {
   const { id } = await params;
   const friendRequestId = parseInt(id, 10);
@@ -33,7 +33,11 @@ export async function generateMetadata({
   }
 }
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const { id } = await params;
   const friendRequestId = parseInt(id, 10);
   if (isNaN(friendRequestId)) {

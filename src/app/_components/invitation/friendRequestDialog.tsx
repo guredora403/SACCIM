@@ -22,7 +22,7 @@ export function FriendRequestDialog({ close }: { close: () => void }) {
   const util = api.useUtils();
   const mutation = api.friendShip.request.createFriendRequest.useMutation({
     onSuccess: () => {
-      util.friendShip.request.invalidate();
+      void util.friendShip.request.invalidate();
     },
   });
 

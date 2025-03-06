@@ -23,7 +23,7 @@ export function CreateAvatarDialog({ close }: { close: () => void }) {
   const util = api.useUtils();
   const mutation = api.avatar.create.useMutation({
     onSuccess: () => {
-      util.avatar.invalidate();
+      void util.avatar.invalidate();
     },
   });
   const createOnFormChange = useCallback((key: keyof avatarFormData) => {
@@ -36,7 +36,7 @@ export function CreateAvatarDialog({ close }: { close: () => void }) {
       });
     };
   }, []);
-  const onsubmit = async (e: any) => {
+  const onsubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     mutation.mutate(formdata, {
       onSuccess: () => {
@@ -44,7 +44,7 @@ export function CreateAvatarDialog({ close }: { close: () => void }) {
       },
       onError: (error) => {
         if (error.data?.code === "BAD_REQUEST") {
-          setErrors(error.data?.zodError?.fieldErrors || []);
+          setErrors(error.data?.zodError?.fieldErrors ?? []);
           console.log(errors);
         }
       },

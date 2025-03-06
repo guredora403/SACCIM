@@ -1,12 +1,6 @@
 "use client";
-import {
-  ActionButton,
-  DialogTrigger,
-  Heading,
-  View,
-} from "@adobe/react-spectrum";
+import { ActionButton, DialogTrigger } from "@adobe/react-spectrum";
 import { CreateAvatarDialog } from "./CreateAvatarDialog";
-import { api } from "~/trpc/react";
 import { ListAvatars } from "./ListAvatars";
 import { Loading } from "../Loading";
 import { Suspense } from "react";

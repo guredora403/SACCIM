@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import { Flex, View, Image, Text } from "@adobe/react-spectrum";
-import { getBaseUrl } from "~/utils/url";
 
 // アバター情報の型定義
 export interface AvatarDisplayProps {
@@ -40,12 +39,12 @@ export function AvatarDisplay({
           height={imageSize}
           overflow="hidden"
         >
-          <img
+          <Image
             src={avatarImage}
             alt={`${name}のアバター`}
             width={imageSize}
             height={imageSize}
-            style={{
+            UNSAFE_style={{
               objectFit: "cover",
               width: "100%",
               height: "100%",

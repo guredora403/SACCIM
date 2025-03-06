@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import { type Metadata } from "next";
 import { api } from "~/trpc/server";
 import { FriendRequestListPage } from "~/app/_components/friend/request";
 

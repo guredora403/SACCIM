@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import { type Metadata } from "next";
 import { api, HydrateClient } from "~/trpc/server";
 import { notFound } from "next/navigation";
 import { InvitationPage } from "~/app/_components/invitation/invitationPage";
@@ -6,7 +6,7 @@ import { InvitationPage } from "~/app/_components/invitation/invitationPage";
 export async function generateMetadata({
   params,
 }: {
-  params: { token: string };
+  params: Promise<{ token: string }>;
 }): Promise<Metadata> {
   const { token } = await params;
   try {
@@ -29,7 +29,7 @@ export async function generateMetadata({
 export default async function InvitationRoute({
   params,
 }: {
-  params: { token: string };
+  params: Promise<{ token: string }>;
 }) {
   const { token } = await params;
   try {
@@ -42,6 +42,7 @@ export default async function InvitationRoute({
       </HydrateClient>
     );
   } catch (error) {
+    console.log(error);
     // 無効なトークンの場合は404ページを表示
     notFound();
   }

@@ -19,7 +19,7 @@ export function ReceivedFriendRequestDetailPage({ id }: { id: number }) {
   });
   const mutation = api.friendShip.request.acceptFriendRequest.useMutation({
     onSuccess(data, variables, context) {
-      util.friendShip.request.getReceivedRequests.invalidate();
+      void util.friendShip.request.getReceivedRequests.invalidate();
       router.push(`/friend/${data.id}`);
     },
     onError(e) {
