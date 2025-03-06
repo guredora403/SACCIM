@@ -28,8 +28,7 @@ export function LoginPage() {
         supabaseClient={supabase}
         providers={["github", "discord"]}
         onlyThirdPartyProviders={!isDev}
-        redirectTo={`${getBaseUrl()}/auth/callback`}
-        queryParams={{ next: nextUrl }}
+        redirectTo={`${getBaseUrl()}/auth/callback?next=${nextUrl}`}
       />
     </div>
   );
