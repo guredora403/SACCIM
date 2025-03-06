@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+// @ts-nocheck
 
 import { spawn } from 'node:child_process'
 
@@ -14,7 +15,7 @@ await exec(process.argv.slice(2).join(' '))
 
 function exec(command) {
   const child = spawn(command, { shell: true, stdio: 'inherit', env })
-  return new Promise((resolve, reject) => {
+  return (new Promise((resolve, reject) => {
     child.on('exit', code => {
       if (code === 0) {
         resolve()
@@ -22,5 +23,5 @@ function exec(command) {
         reject(new Error(`${command} failed rc=${code}`))
       }
     })
-  })
+  }))
 }
