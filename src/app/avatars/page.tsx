@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "アバター一覧",
 };
 
+export const dynamic = "force-dynamic";
 export default function Avatars() {
   void api.avatar.getAll.prefetch();
 
