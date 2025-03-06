@@ -29,4 +29,4 @@ jobs:
         run: yarn prisma generate
 
       - name: Build check
-        run: yarn run build
+        run: SKIP_ENV_VALIDATION=1 yarn run build
