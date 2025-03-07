@@ -12,7 +12,7 @@ import {
 import { useCallback } from "react";
 import { type ContactItem } from "~/models";
 import { MdEmail } from "react-icons/md";
-import { FaGithub, FaDiscord } from "react-icons/fa";
+import { FaGithub, FaDiscord, FaLine } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 
 export function ContactTypeSelector() {
@@ -54,10 +54,13 @@ export function ContactTypeSelector() {
             <FaDiscord />
             <Text>Discord</Text>
           </Button>
+          <Button variant="secondary" onPress={createOnTypeSelected("LINE")}>
+            <FaLine />
+            <Text>LINE</Text>
+          </Button>
           <Button
             variant="secondary"
             onPress={createOnTypeSelected("CUSTOMLINK")}
-            isDisabled
           >
             <Text>カスタムリンク</Text>
           </Button>
