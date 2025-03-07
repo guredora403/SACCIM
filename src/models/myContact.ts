@@ -65,7 +65,7 @@ export function contactValuePreProcess(type: ContactType, value: string) {
   }
 }
 
-export const MyContactSchema = z
+export const ContactItemSchema = z
   .object({
     type: z.nativeEnum(ContactType, { message: "unsuported type" }),
     displayText: z
@@ -89,4 +89,4 @@ export const MyContactSchema = z
     }
   });
 
-export type MyContact = z.infer<typeof MyContactSchema>;
+export type ContactItem = z.infer<typeof ContactItemSchema>;

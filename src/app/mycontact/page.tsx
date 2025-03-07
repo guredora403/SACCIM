@@ -1,5 +1,12 @@
 import { MyContactPage } from "../_components/mycontact";
+import { api, HydrateClient } from "~/trpc/server";
 
+export const dynamic = "force-dynamic";
 export default function MyContact() {
-  return <MyContactPage />;
+  void api.myContact.getAll.prefetch();
+  return (
+    <HydrateClient>
+      <MyContactPage />
+    </HydrateClient>
+  );
 }
