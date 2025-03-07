@@ -18,8 +18,33 @@ model User {
     sentFriendRequests     FriendRequest[] @relation("friend_request_sender_user")
     receivedFriendRequests FriendRequest[] @relation("friend_request_recipient_user")
     contactAvatars         ContactAvatar[]
+    myContactItems         ContactItem[]
 
     @@map("users")
+}
+
+model ContactItem {
+    id          Int         @id @default(autoincrement())
+    owner       User        @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+    ownerId     String      @db.Uuid
+    type        ContactType
+    displayText String?
+    value       String
+    createdAt   DateTime    @default(now())
+
+    @@map("contact_items")
+}
+
+enum ContactType {
+    EMAIL
+    PHONE
+    LINE
+    GITHUB
+    TWITTER
+    INSTAGRAM
+    DISCORD
+    CUSTOMLINK
+    CUSTOMTEXT
 }
 
 model Avatar {
