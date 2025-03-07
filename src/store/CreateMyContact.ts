@@ -1,9 +1,9 @@
 import { atom } from "jotai";
-import { type MyContact } from "~/models";
+import { type ContactItem } from "~/models";
 
 export const stepAtom = atom<1 | 2>(1);
 
-export const contactDataAtom = atom<MyContact>({
+export const contactDataAtom = atom<ContactItem>({
   type: "CUSTOMLINK", // 特に意味はない
   displayText: undefined,
   value: "",
