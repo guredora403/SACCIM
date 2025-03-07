@@ -12,6 +12,7 @@ const Navigation = ({ authorized }: { authorized: boolean }) => {
     ? [
         { href: "/friend", label: "友達" },
         { href: "/avatars", label: "アバター一覧" },
+        { href: "/mycontact", label: "自分の連絡先" },
         { href: "/logout", label: "ログアウト" },
       ]
     : [{ href: "/login", label: "ログイン" }];
