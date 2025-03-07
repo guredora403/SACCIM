@@ -216,3 +216,25 @@ export function CustomLinkForm({
     </view>
   );
 }
+
+export function InstagramForm({
+  onsubmit,
+}: {
+  onsubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+}) {
+  return (
+    <view>
+      <Heading level={2}>Instagramを追加</Heading>
+      <Content>
+        <ContactInputCommonForm
+          onsubmit={onsubmit}
+          formConfig={{
+            label: "InstagramのプロフィールURLまたはユーザー名",
+            description: "例: https://www.Instagram.com/user_name, @user_name",
+            placeholder: "@username",
+          }}
+        />
+      </Content>
+    </view>
+  );
+}
