@@ -37,6 +37,25 @@ export function ContactInputCommonForm({
       validationErrors={errors}
       onSubmit={onsubmit}
     >
+      {formConfig.showDisplayText ? (
+        <TextField
+          name="displayText"
+          label="表示名"
+          description="この連絡先の表示名（省略可能）"
+          placeholder="表示名"
+          value={contactData.displayText ?? ""}
+          onChange={(value) => {
+            setContactData((prev) => {
+              return {
+                ...prev,
+                displayText: value ?? undefined,
+              };
+            });
+          }}
+        />
+      ) : (
+        <></>
+      )}
       <TextField
         name="value"
         label={formConfig.label}
@@ -144,6 +163,53 @@ export function DiscordForm({
             label: "Discord招待URL",
             description: "例: https://discord.gg/xxxxxx",
             placeholder: "",
+          }}
+        />
+      </Content>
+    </view>
+  );
+}
+
+export function LineForm({
+  onsubmit,
+}: {
+  onsubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+}) {
+  return (
+    <view>
+      <Heading level={2}>LINEを追加</Heading>
+      <Text>
+        MyQRコード→リンクをコピーから招待URLをコピーして以下に貼り付けてください。
+      </Text>
+      <ContactInputCommonForm
+        onsubmit={onsubmit}
+        formConfig={{
+          label: "LINE招待URL",
+          description: "例: https://line.me/ti/p/xxxxxx",
+          placeholder: "",
+        }}
+      />
+    </view>
+  );
+}
+
+export function CustomLinkForm({
+  onsubmit,
+}: {
+  onsubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+}) {
+  return (
+    <view>
+      <Heading level={2}>カスタムリンクを追加</Heading>
+      <Content>
+        <Text>自由なリンクを追加できます。</Text>
+        <ContactInputCommonForm
+          onsubmit={onsubmit}
+          formConfig={{
+            label: "URL",
+            description: "例: https://example.com",
+            placeholder: "https://",
+            showDisplayText: true,
           }}
         />
       </Content>

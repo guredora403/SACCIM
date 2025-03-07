@@ -7,6 +7,7 @@ import {
   stepAtom,
 } from "~/store/CreateMyContact";
 import {
+  CustomLinkForm,
   DiscordForm,
   EmailForm,
   GitHubForm,
@@ -45,6 +46,8 @@ function ContactDataInputContent({
       return <GitHubForm onsubmit={onsubmit} />;
     case "DISCORD":
       return <DiscordForm onsubmit={onsubmit} />;
+    case "CUSTOMLINK":
+      return <CustomLinkForm onsubmit={onsubmit} />;
     default:
       return <div>todo: 実装する</div>;
   }
