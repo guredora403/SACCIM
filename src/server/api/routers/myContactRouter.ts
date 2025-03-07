@@ -3,6 +3,24 @@ import { ContactItemSchema } from "~/models";
 import { contactValuePreProcess } from "~/models/myContact";
 
 export const myContactRouter = createTRPCRouter({
+  getAll: authorizedProcedure.query(async ({ ctx: { db, user } }) => {
+    const contacts = await db.contactItem.findMany({
+      where: {
+        ownerId: user.id,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+      select: {
+        id: true,
+        type: true,
+        displayText: true,
+        value: true,
+        createdAt: true,
+      },
+    });
+    return contacts;
+  }),
   create: authorizedProcedure
     .input(ContactItemSchema)
     .mutation(async ({ ctx: { db, user }, input }) => {
