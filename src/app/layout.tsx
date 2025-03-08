@@ -8,6 +8,7 @@ import Navigation from "./_components/navigation";
 import { Suspense } from "react";
 import { Loading } from "./_components/Loading";
 import { Toaster } from "react-hot-toast";
+import { Footer } from "./_components/footer";
 
 export const metadata: Metadata = {
   title: {
@@ -39,7 +40,7 @@ export default function RootLayout({
           <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
             {children}
           </main>
-          <footer>powered by T3Stack and supabase</footer>
+          <Footer />
         </ClientProviders>
       </body>
     </html>
