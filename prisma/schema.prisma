@@ -90,6 +90,7 @@ model ContactAvatar {
     avatarId     Int
     createdAt    DateTime   @default(now())
 
+    @@unique([friendShipId, avatarId])
     @@map("contact_avatars")
 }
 
