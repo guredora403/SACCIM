@@ -12,6 +12,7 @@ import {
   EmailForm,
   GitHubForm,
   InstagramForm,
+  LineForm,
   TwitterForm,
 } from "./contactDataInputForms";
 
@@ -47,6 +48,8 @@ function ContactDataInputContent({
       return <GitHubForm onsubmit={onsubmit} />;
     case "INSTAGRAM":
       return <InstagramForm onsubmit={onsubmit} />;
+    case "LINE":
+      return <LineForm onsubmit={onsubmit} />;
     case "DISCORD":
       return <DiscordForm onsubmit={onsubmit} />;
     case "CUSTOMLINK":
