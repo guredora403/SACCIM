@@ -10,7 +10,7 @@ import {
   Content,
 } from "@adobe/react-spectrum";
 import { useCallback } from "react";
-import { type ContactItem } from "~/models";
+import { type ContactItemInput } from "~/models";
 import { MdEmail } from "react-icons/md";
 import { FaGithub, FaDiscord, FaLine, FaInstagram } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
@@ -19,7 +19,7 @@ export function ContactTypeSelector() {
   const setContactData = useSetAtom(contactDataAtom);
   const setStep = useSetAtom(stepAtom);
   const createOnTypeSelected = useCallback(
-    (type: ContactItem["type"]) => {
+    (type: ContactItemInput["type"]) => {
       return () => {
         setContactData((prev) => {
           return {
