@@ -4,7 +4,7 @@ import { createClient } from "~/utils/supabase/server";
 import { type Metadata } from "next";
 import { HomePage } from "./_components/home";
 
-export const metadata: Metadata = { title: "top" };
+export const metadata: Metadata = { title: "ホーム/SACCIM" };
 
 export default async function Home() {
   const supabase = await createClient();
