@@ -26,7 +26,7 @@ export function LoginPage() {
       <h2>ログイン</h2>
       <Auth
         supabaseClient={supabase}
-        providers={["github", "discord"]}
+        providers={["github", "discord", "google"]}
         onlyThirdPartyProviders={!isDev}
         redirectTo={`${getBaseUrl()}/auth/callback?next=${nextUrl}`}
       />
