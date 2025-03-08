@@ -89,4 +89,8 @@ export const ContactItemSchema = z
     }
   });
 
-export type ContactItem = z.infer<typeof ContactItemSchema>;
+export type ContactItemInput = z.infer<typeof ContactItemSchema>;
+
+export type ContactItem = ContactItemInput & {
+  id: number;
+};

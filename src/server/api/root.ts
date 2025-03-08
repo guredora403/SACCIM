@@ -4,6 +4,7 @@ import { env } from "~/env";
 import { avatarRouter } from "./routers/avatarRouter";
 import { friendShipRouter } from "./routers/friendShipRouter";
 import { myContactRouter } from "./routers/myContactRouter";
+import { contactRouter } from "./routers/contactRouter";
 
 /**
  * This is the primary router for your server.
@@ -14,6 +15,7 @@ export const appRouter = createTRPCRouter({
   avatar: avatarRouter,
   friendShip: friendShipRouter,
   myContact: myContactRouter,
+  contact: contactRouter,
   isDev: publicProcedure.query(async () => {
     return env.NODE_ENV === "development";
   }),

@@ -1,3 +1,7 @@
 export { RelationshipStatus } from "./relationship";
 
-export { ContactItemSchema, type ContactItem } from "./myContact";
+export {
+  ContactItemSchema,
+  type ContactItemInput,
+  type ContactItem,
+} from "./myContact";

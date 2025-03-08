@@ -36,6 +36,7 @@ function MyContactList() {
       {mycontacts.map((contact) => (
         <ContactItemDisplay
           key={contact.id}
+          id={contact.id}
           type={contact.type}
           displayText={contact.displayText ?? undefined}
           value={contact.value}
