@@ -28,7 +28,7 @@ export function ContactAvatarList() {
             borderRadius="medium"
             backgroundColor="gray-50"
           >
-            <Link href={`/contact/${contactAvatar.friendShip.id}`}>
+            <Link href={`/contact/${contactAvatar.id}`}>
               <AvatarDisplay
                 name={contactAvatar.avatar.name}
                 iconFileName={contactAvatar.avatar.iconFileName}
